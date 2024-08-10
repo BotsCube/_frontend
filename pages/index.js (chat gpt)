@@ -1,0 +1,41 @@
+import { useState } from 'react'
+import Link from 'next/link'
+
+export default function Home() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+  const handleSignIn = () => {
+    setIsAuthenticated(true)
+  }
+
+  const handleSignOut = () => {
+    setIsAuthenticated(false)
+  }
+
+  return (
+    <div className="p-4">
+      <header className="flex justify-between items-center mb-4">
+        <h1 className="text-2xl font-bold">Bot List</h1>
+        {isAuthenticated ? (
+          <button onClick={handleSignOut} className="bg-red-500 text-white p-2 rounded">
+            Sign out
+          </button>
+        ) : (
+          <button onClick={handleSignIn} className="bg-blue-500 text-white p-2 rounded">
+            Sign in with Discord
+          </button>
+        )}
+      </header>
+      {isAuthenticated ? (
+        <div>
+          <h2 className="text-xl font-semibold">Welcome, User</h2>
+          <Link href="/submit">
+            <a className="bg-blue-500 text-white p-2 rounded">Submit Your Bot</a>
+          </Link>
+        </div>
+      ) : (
+        <p>Please sign in to add your bots.</p>
+      )}
+    </div>
+  )
+}
